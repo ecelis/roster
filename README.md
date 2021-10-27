@@ -1,70 +1,119 @@
-# Getting Started with Create React App
+<p align="center">
+   <br/>
+   <a href="https://next-auth.js.org" target="_blank"><img width="150px" src="https://next-auth.js.org/img/logo/logo-sm.png" /></a>
+   <h3 align="center">NextAuth.js Example App</h3>
+   <p align="center">
+   Open Source. Full Stack. Own Your Data.
+   </p>
+   <p align="center" style="align: center;">
+      <a href="https://npm.im/next-auth">
+        <img alt="npm" src="https://img.shields.io/npm/v/next-auth?color=green&label=next-auth">
+      </a>
+      <a href="https://bundlephobia.com/result?p=next-auth-example">
+        <img src="https://img.shields.io/bundlephobia/minzip/next-auth?label=next-auth" alt="Bundle Size"/>
+      </a>
+      <a href="https://www.npmtrends.com/next-auth">
+        <img src="https://img.shields.io/npm/dm/next-auth?label=next-auth%20downloads" alt="Downloads" />
+      </a>
+   </p>
+</p>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
 
-## Available Scripts
+NextAuth.js is a complete open source authentication solution for [Next.js](http://nextjs.org/) applications.
 
-In the project directory, you can run:
+This is an example application which shows how `next-auth` is applied to a basic Next.js app. It is also used in many of our CI workflows and other places where a concrete usage example is necessary. 
 
-### `npm start`
+It can be found at [`next-auth-example.vercel.app`](https://next-auth-example.vercel.app/)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### About NextAuth.js
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+NextAuth.js is an easy to implement, full-stack (client/server) open source authentication library designed for [Next.js](https://nextjs.org) and [Serverless](https://vercel.com).
 
-### `npm test`
+Go to [next-auth.js.org](https://next-auth.js.org) for more information and documentation.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+> *NextAuth.js is not officially associated with Vercel or Next.js.*
 
-### `npm run build`
+## Getting Started
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 1. Clone the repository and install dependencies
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+git clone https://github.com/nextauthjs/next-auth-example.git
+cd next-auth-example
+npm install
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 2. Configure your local environment
 
-### `npm run eject`
+Copy the .env.local.example file in this directory to .env.local (which will be ignored by Git):
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```
+cp .env.local.example .env.local
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Add details for one or more providers (e.g. Google, Twitter, GitHub, Email, etc).
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+#### Database
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+A database is needed to persist user accounts and to support email sign in. However, you can still use NextAuth.js for authentication without a database by using OAuth for authentication. If you do not specify a database, [JSON Web Tokens](https://jwt.io/introduction) will be enabled by default.
 
-## Learn More
+You **can** skip configuring a database and come back to it later if you want.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+For more information about setting up a database, please check out the following links:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+* Docs: [next-auth.js.org/adapters/overview](https://next-auth.js.org/adapters/overview)
+* Adapters Repo: [nextauthjs/adapters](https://github.com/nextauthjs/adapters)
 
-### Code Splitting
+### 3. Configure Authentication Providers
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+1. Review and update options in `pages/api/auth/[...nextauth].js` as needed.
 
-### Analyzing the Bundle Size
+2. When setting up OAuth, in the developer admin page for each of your OAuth services, you should configure the callback URL to use a callback path of `{server}/api/auth/callback/{provider}`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+  e.g. For Google OAuth you would use: `http://localhost:3000/api/auth/callback/google`
 
-### Making a Progressive Web App
+  A list of configured providers and their callback URLs is available from the endpoint `/api/auth/providers`. You can find more information at https://next-auth.js.org/configuration/providers
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+3. You can also choose to specify an SMTP server for passwordless sign in via email.
 
-### Advanced Configuration
+### 4. Start the application
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+To run your site locally, use:
 
-### Deployment
+```
+npm run dev
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+To run it in production mode, use:
 
-### `npm run build` fails to minify
+```
+npm run build
+npm run start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### 5. Preparing for Production
+
+You must set the `NEXTAUTH_URL` environment variable with the URL of your site, before deploying to production.
+
+e.g. in your `.env.local` file - `NEXTAUTH_URL=https://example.com`
+
+To do this with Vercel, you can use the [Vercel project dashboard](https://vercel.com/dashboard) or their cli via the `vc env` command:
+
+```
+vc env add NEXTAUTH_URL production
+```
+
+Do not forget to set the environment variables for the Client ID and Client Secret values for all your configured authentication providers in your hosting providers dashboard, i.e. with Vercel as described above.
+
+## Acknowledgements
+
+<a href="https://vercel.com?utm_source=nextauthjs&utm_campaign=oss">
+<img width="170px" src="https://raw.githubusercontent.com/nextauthjs/next-auth/canary/www/static/img/powered-by-vercel.svg" alt="Powered By Vercel" />
+</a>
+<p align="left">Thanks to Vercel sponsoring this project by allowing it to be deployed for free for the entire NextAuth.js Team</p>
+
+## License
+
+ISC
+
