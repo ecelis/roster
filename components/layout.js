@@ -1,13 +1,14 @@
 import Header from '../components/header'
 import Footer from '../components/footer'
+import { Container } from '@mui/material'
 
 export default function Layout ({children}) {
   return (
     <>
       <Header/>
-      <main>
+      <Container component="main" maxWidth="sm" sx={{ md: 4 }}>
         {children}
-      </main>
+      </Container>
       <Footer/>
     </>
   )
