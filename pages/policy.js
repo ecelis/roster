@@ -13,7 +13,7 @@ export default function PolicyPage () {
       </p>
       <p>
         This site records personal data for archery athletes with the goal of registering them
-        into archery tournaments. The data is beign encrypted at storage and it is not shared
+        into archery tournaments. The data is not shared
         with people or organizations not related to registered achery clubs or organizations.
       </p>
       <p>

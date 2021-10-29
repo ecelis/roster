@@ -9,17 +9,7 @@ import {
     Typography
   } from '@mui/material'
 import { DatePicker } from '@mui/lab';
-
-const clubes = [
-    { label: 'Avitia Arquería', id: 'AA' },
-    { label: 'Full DRaw AR', id: 'fulldrawar'}
-]
-
-const cities = [
-    { label: 'Monterrey', id: 'MTY' },
-    { label: 'Apodaca', id: 'APO' },
-    { label: 'San Pedro', id: 'SPO' }
-]
+import { cities, clubes } from '../mock/data'
 
 export default function RegistrationForm({tournament}) {  
   const [ state, setState ] = useState({

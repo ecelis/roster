@@ -3,14 +3,13 @@ import Layout from '../components/layout'
 import { Container } from '@mui/material'
 import { Paper } from '@mui/material'
 import { Typography } from '@mui/material'
-
+import FeaturedTurnament from '../components/FeaturedTournament'
+import { tournament } from "../mock/data";
 
 export default function Page () {
   return (
     <Layout>
-      <Paper variant="outlined" sx={{ my: { xs: 3, md: 6}, p: { xs: 2, md: 3} }}>
-        
-      </Paper>
+      <FeaturedTurnament tournament={tournament} />
     </Layout>
   )
 }
