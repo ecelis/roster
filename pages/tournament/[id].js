@@ -10,9 +10,7 @@ export default function RegistrationPage () {
     const { data: session, status } = useSession();
     const loading = status === 'loading';
     const { id } = router.query;
-    console.log(id)
-    console.log(tournament[0])
-
+    
     return (
         <Layout>
             {!session && <>
