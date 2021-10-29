@@ -15,9 +15,8 @@ export default function RegistrationPage () {
       </>}
       {session &&
         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6}, p: { xs: 2, md: 3} }}>
-          <Typography component="h1" variant="h4" align="center">{`Registro ${tournament.name}`}</Typography>
-          <Typography component="h6" variant="p" align="center">{`${tournament.fromDate} a ${tournament.toDate}`}</Typography>
-          <RegistrationForm tournament={tournament} />
+          <Typography component="h1" variant="h4" align="center">{`My Tournaments ${session.user.email}`}</Typography>
+          
         </Paper>
       }
     </Layout>
