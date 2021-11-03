@@ -5,8 +5,7 @@ import {
     InputLabel,
     MenuItem,
     Select,
-    TextField,
-    Typography
+    TextField
   } from '@mui/material'
 import { DatePicker } from '@mui/lab';
 import { cities, clubes } from '../mock/data'
