@@ -1,6 +1,7 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useContext, useState } from 'react'
 import {
     Autocomplete,
+    Button,
     Grid,
     InputLabel,
     MenuItem,
@@ -10,8 +11,8 @@ import {
 import { DatePicker } from '@mui/lab';
 import { cities, clubes } from '../mock/data'
 
-export default function RegistrationForm({tournament}) {  
-  const [ state, setState ] = useState({
+export default function RegistrationForm({tournament, state, setState}) {  
+  /*const [ state, setState ] = useState({
     athlete: {
       firstName: '',
       lastName: '',
@@ -24,7 +25,7 @@ export default function RegistrationForm({tournament}) {
       state: { label: 'Nuevo León', id: 'NL' }
     },
     tournament: tournament
-  });
+  });*/
  
   const handleValue = (e) => {
     let newState;
