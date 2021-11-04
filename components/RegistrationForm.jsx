@@ -1,7 +1,6 @@
 import { Fragment, useContext, useState } from 'react'
 import {
     Autocomplete,
-    Button,
     Grid,
     InputLabel,
     MenuItem,
@@ -11,22 +10,7 @@ import {
 import { DatePicker } from '@mui/lab';
 import { cities, clubes } from '../mock/data'
 
-export default function RegistrationForm({tournament, state, setState}) {  
-  /*const [ state, setState ] = useState({
-    athlete: {
-      firstName: '',
-      lastName: '',
-      gender: '',
-      birthDate: '',
-      division: '',
-      klass: '',
-      club: '',
-      city: '',
-      state: { label: 'Nuevo León', id: 'NL' }
-    },
-    tournament: tournament
-  });*/
- 
+export default function RegistrationForm({tournament, state, setState}) { 
   const handleValue = (e) => {
     let newState;
     if (e instanceof Date) {
@@ -43,7 +27,7 @@ export default function RegistrationForm({tournament, state, setState}) {
     setState(newState)
   }
 
-    return (
+  return (
     <Fragment>
         <Grid container spacing={3}>
             <Grid item xs={12} sm={6}>
@@ -150,5 +134,5 @@ export default function RegistrationForm({tournament, state, setState}) {
             </Grid>
         </Grid>
     </Fragment>
-    )
+  )
 }
