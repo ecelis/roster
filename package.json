@@ -26,6 +26,7 @@
     "@mui/lab": "^5.0.0-alpha.53",
     "@mui/material": "^5.0.6",
     "@next-auth/mongodb-adapter": "0.0.2-next.285",
+    "axios": "^0.24.0",
     "date-fns": "^2.25.0",
     "github-fork-ribbon-css": "^0.2.3",
     "mongodb": "^4.1.3",

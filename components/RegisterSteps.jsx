@@ -3,6 +3,8 @@ import { Box } from "@mui/system";
 import { Fragment, useState } from "react";
 import RegistrationForm from "./RegistrationForm";
 import Review from "./Review";
+import axios from "axios";
+
 const steps = ['Athlete info', 'Review'];
 
 function getStepContent(step, tournament, state, setState) {
@@ -34,6 +36,7 @@ export default function RegisterSteps({ tournament }) {
         },
         tournament: tournament
       });
+    const [ success, setSuccess ] = useState('loading');
 
     const handleNext = () => {
         setActiveStep(activeStep + 1);
@@ -41,6 +44,18 @@ export default function RegisterSteps({ tournament }) {
 
     const handleBack = () => {
         setActiveStep(activeStep - 1);
+    }
+
+    const handleSave = () => {
+        console.log(state)
+        axios.post('http://localhost:3000/api/athlete', state)
+            .then(() => setSuccess('ok')).catch(() => setSuccess('error'));
+
+        return (
+            <Fragment>
+                <Typography variant="subtitle1">You have been registered</Typography>
+            </Fragment>
+        );
     }
 
     return (
@@ -53,11 +68,7 @@ export default function RegisterSteps({ tournament }) {
                 ))}
             </Stepper>
             <Fragment>
-                {activeStep === steps.length ? (
-                    <Fragment>
-                        <Typography variant="subtitle1">You have been registered</Typography>
-                    </Fragment>
-                ) : (
+                {activeStep === steps.length ? handleSave() : (
                     <Fragment>
                         {getStepContent(activeStep, tournament, state, setState)}
                         <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
