@@ -1,4 +1,4 @@
-import { Grid, List, Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import { Fragment } from "react";
 
 // TODO Get divisions from tournament
@@ -68,7 +68,8 @@ export default function Review({state, setState}) {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <Typography gutterBottom>{
-                    state.athlete.gender == 'M' ? 'Man' : 'Woman' }</Typography>
+                    state.athlete.gender == 'M' ? 'Man' : 'Woman'
+                    }</Typography>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <Typography gutterBottom>{state.athlete.birthDate.toLocaleDateString()}</Typography>

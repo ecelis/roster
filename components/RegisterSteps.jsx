@@ -4,14 +4,47 @@ import { Fragment, useState } from "react";
 import RegistrationForm from "./RegistrationForm";
 import Review from "./Review";
 import axios from "axios";
+import Ajv from 'ajv';
+
+const ajv = new Ajv({ allErrors: true });
+const schema = {
+    type: "object",
+    properties: {
+        athlete: {
+            type: "object",
+            properties: {
+                firstName: { type: "string", minLength: 2 },
+                lastName: { type: "string", minLength: 2},
+                gender: { type: "string", minLength: 1},
+                birthDate: { type: "object"},
+                division: { type: "string", minLength: 1},
+                klass: { type: "string", minLength: 1},
+                club: { type: "string" },
+                city: { type: "string" },
+                state: {
+                    type: "object",
+                    properties: {
+                        label: { type: "string"},
+                        id: { type: "string"}
+                    }
+                }
+            },
+            required: ["firstName", "lastName", "gender", "division", "klass", "club", "city", "state"]
+        },
+        tournament: { type: "object" }
+    },
+    required: ["athlete"],
+    additionalProperties: false
+}
+const validator = ajv.compile(schema);
 
 const steps = ['Athlete info', 'Review'];
 
-function getStepContent(step, tournament, state, setState) {
+function getStepContent(step, tournament, state, setState, validate) {
     switch (step) {
         case 0:
             return <RegistrationForm
-                tournament={tournament} state={state} setState={setState} />;
+                tournament={tournament} state={state} setState={setState} validate={validate} />;
         case 1:
             return <Review
                 tournament={tournament} state={state} setState={setState} />;
@@ -37,27 +70,27 @@ export default function RegisterSteps({ tournament }) {
         tournament: tournament
       });
     const [ success, setSuccess ] = useState('loading');
+    const [ allowNext, setAllowNext ] = useState(false);
+    const [ errors, setErrors ] = useState();
 
-    const handleNext = () => {
+    const handleNext = (e) => {
+        if (e.target.textContent === 'Save') {
+            axios.post('http://localhost:3000/api/athlete', state)
+                .then(() => setSuccess('ok')).catch(() => setSuccess('error'));
+        }
         setActiveStep(activeStep + 1);
     }
 
     const handleBack = () => {
         setActiveStep(activeStep - 1);
     }
-
-    const handleSave = () => {
-        console.log(state)
-        axios.post('http://localhost:3000/api/athlete', state)
-            .then(() => setSuccess('ok')).catch(() => setSuccess('error'));
-
-        return (
-            <Fragment>
-                <Typography variant="subtitle1">You have been registered</Typography>
-            </Fragment>
-        );
+    
+    const validate = (payload) => {
+        const valid = validator(payload)
+        // TODO show errors in UI
+        setAllowNext(valid);
     }
-
+    
     return (
         <Container>
             <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
@@ -68,9 +101,13 @@ export default function RegisterSteps({ tournament }) {
                 ))}
             </Stepper>
             <Fragment>
-                {activeStep === steps.length ? handleSave() : (
+                {activeStep === steps.length ? (
                     <Fragment>
-                        {getStepContent(activeStep, tournament, state, setState)}
+                        <Typography variant="subtitle1">You have been registered</Typography>
+                    </Fragment>
+                ) : (
+                    <Fragment>
+                        {getStepContent(activeStep, tournament, state, setState, validate)}
                         <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                             {activeStep !== 0 && (
                                 <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
@@ -78,6 +115,7 @@ export default function RegisterSteps({ tournament }) {
                                 </Button>
                             )}
                             <Button
+                                disabled={!allowNext}
                                 variant="contained"
                                 onClick={handleNext}
                                 sx={{ mt: 3, ml: 1 }}>

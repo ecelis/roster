@@ -1,4 +1,4 @@
-import { Fragment, useContext, useState } from 'react'
+import { Fragment } from 'react'
 import {
     Autocomplete,
     Grid,
@@ -10,7 +10,7 @@ import {
 import { DatePicker } from '@mui/lab';
 import { cities, clubes } from '../mock/data'
 
-export default function RegistrationForm({tournament, state, setState}) { 
+export default function RegistrationForm({tournament, state, setState, validate}) { 
   const handleValue = (e) => {
     let newState;
     if (e instanceof Date) {
@@ -24,7 +24,8 @@ export default function RegistrationForm({tournament, state, setState}) {
         tournament: tournament
       })
     }
-    setState(newState)
+    validate(newState);
+    setState(newState);
   }
 
   return (
@@ -69,6 +70,7 @@ export default function RegistrationForm({tournament, state, setState}) {
             </Grid>
             <Grid item xs={12} sm={6}>
             <DatePicker
+            required
             id="birthDate"
             name="birthDate"
             label="Birth Date"
@@ -96,6 +98,7 @@ export default function RegistrationForm({tournament, state, setState}) {
             <Grid item xs={12} sm={6}>
             <InputLabel id="klass-label">Class</InputLabel>
             <Select
+            required
             labelId="klass-label"
             id="klass"
             name="klass"
@@ -112,6 +115,7 @@ export default function RegistrationForm({tournament, state, setState}) {
             </Grid>
             <Grid item xs={12}>
                 <Autocomplete
+                required
                 disablePortal
                 freeSolo
                 id="club"
