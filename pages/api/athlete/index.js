@@ -10,7 +10,7 @@ const dbHandler = async function() {
 }
 
 export default async function handler(req, res) {
-    const session = getSession({ req });
+    const session = await getSession({ req });
     
     let result;
     const { client, collection } = await dbHandler();

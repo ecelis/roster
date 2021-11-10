@@ -75,7 +75,7 @@ export default function RegisterSteps({ tournament }) {
 
     const handleNext = (e) => {
         if (e.target.textContent === 'Save') {
-            axios.post('http://localhost:3000/api/athlete', state)
+            axios.post(`${process.env.NEXTAUTH_URL}api/athlete`, state)
                 .then(() => setSuccess('ok')).catch(() => setSuccess('error'));
         }
         setActiveStep(activeStep + 1);

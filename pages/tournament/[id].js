@@ -3,24 +3,29 @@ import Layout from '../../components/layout'
 import RegisterSteps from '../../components/RegisterSteps'
 import { useSession } from 'next-auth/react'
 import { Paper, Typography } from '@mui/material';
-import { tournament } from '../../mock/data';
+import { useEffect, useState } from 'react';
 
 export default function RegistrationPage () {
-    const router = useRouter();
     const { data: session, status } = useSession();
+    const [ tournament, setTournament ] = useState();
+    const router = useRouter();
+    useEffect(() => {
+        setTournament(JSON.parse(sessionStorage.getItem('tournaments')).find(e => {
+            return e._id === router.query.id;
+        }));
+    }, [router]);
     const loading = status === 'loading';
-    const { id } = router.query;
     
     return (
         <Layout>
-            {!session && <>
-                <p>Denied</p>
+            {(!session && tournament) && <>
+                <p>Sign in to register in {tournament.name} from {new Date(tournament.fromDate).toLocaleDateString()} to {new Date(tournament.toDate).toLocaleDateString()}</p>
             </>}
-            {session &&
+            {(session && tournament) &&
                 <Paper variant="outlined" sx={{ my: { xs: 3, md: 6}, p: { xs: 2, md: 3} }}>
-                    <Typography component="h1" variant="h4" align="center">{`Registro ${tournament[0].name}`}</Typography>
-                    <Typography component="h6" variant="p" align="center">{`${tournament[0].fromDate.toLocaleDateString()} a ${tournament[0].toDate.toLocaleDateString()}`}</Typography>
-                    <RegisterSteps tournament={tournament[0]} />
+                    <Typography component="h1" variant="h4" align="center">{`Registro ${tournament.name}`}</Typography>
+                    <Typography component="h6" variant="p" align="center">{`${new Date(tournament.fromDate).toLocaleDateString()} a ${new Date(tournament.toDate).toLocaleDateString()}`}</Typography>
+                    <RegisterSteps tournament={tournament} />
                 </Paper>
             }
         </Layout>

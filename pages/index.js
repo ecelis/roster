@@ -1,15 +1,22 @@
-import { Fragment } from 'react'
 import Layout from '../components/layout'
-import { Container } from '@mui/material'
-import { Paper } from '@mui/material'
-import { Typography } from '@mui/material'
 import FeaturedTurnament from '../components/FeaturedTournament'
-import { tournament } from "../mock/data";
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 export default function Page () {
+  const [ state, setState ] = useState([]);
+  useEffect(() => {
+    axios.get(`${process.env.NEXT_PUBLIC_ROSTER_API}tournament`)
+      .then(res => {
+        const json = res.data;
+        setState(json);
+        sessionStorage.setItem('tournaments', JSON.stringify(json.data));
+      });
+  },[]);
+  
   return (
     <Layout>
-      <FeaturedTurnament tournament={tournament} />
+     {state.data ? <FeaturedTurnament tournament={state.data} /> : null}
     </Layout>
   )
 }

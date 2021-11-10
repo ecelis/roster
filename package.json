@@ -12,7 +12,8 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "test": "jest --watch"
   },
   "author": "Iain Collins <me@iaincollins.com>",
   "contributors": [
@@ -37,5 +38,13 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "sqlite3": "^5.0.2"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.15.0",
+    "@testing-library/react": "^12.1.2",
+    "babel-jest": "^27.3.1",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^27.3.1",
+    "react-test-renderer": "^17.0.2"
   }
 }

@@ -1,8 +1,6 @@
 import Layout from '../../components/layout'
-import RegistrationForm from '../../components/RegistrationForm'
 import { useSession } from 'next-auth/react'
 import { Paper, Typography } from '@mui/material';
-import { tournament } from '../../mock/data';
 
 export default function RegistrationPage () {
   const { data: session, status } = useSession();
