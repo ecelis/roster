@@ -4,15 +4,27 @@ import RegisterSteps from '../../components/RegisterSteps'
 import { useSession } from 'next-auth/react'
 import { Paper, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 export default function RegistrationPage () {
     const { data: session, status } = useSession();
     const [ tournament, setTournament ] = useState();
     const router = useRouter();
     useEffect(() => {
-        setTournament(JSON.parse(sessionStorage.getItem('tournaments')).find(e => {
-            return e._id === router.query.id;
-        }));
+        if (sessionStorage.getItem('tournaments')) {
+            setTournament(JSON.parse(sessionStorage.getItem('tournaments')).find(e => {
+                return e._id === router.query.id;
+            }));
+        } else {
+            axios.get(`${process.env.NEXT_PUBLIC_ROSTER_API}tournament`)
+                .then(res => {
+                    const json = res.data;
+                    setTournament(json.data.find(e => {
+                        return e._id === router.query.id
+                    }));
+                    sessionStorage.setItem('tournaments', JSON.stringify(json.data));
+                });
+        }
     }, [router]);
     const loading = status === 'loading';
     
