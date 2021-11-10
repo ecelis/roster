@@ -16,7 +16,7 @@ export default function RegistrationPage () {
                 return e._id === router.query.id;
             }));
         } else {
-            axios.get(`${process.env.NEXT_PUBLIC_ROSTER_API}tournament`)
+            axios.get(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/tournament`)
                 .then(res => {
                     const json = res.data;
                     setTournament(json.data.find(e => {

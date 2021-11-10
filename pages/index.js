@@ -6,7 +6,7 @@ import axios from 'axios';
 export default function Page () {
   const [ state, setState ] = useState([]);
   useEffect(() => {
-    axios.get(`${process.env.NEXT_PUBLIC_ROSTER_API}tournament`)
+    axios.get(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/tournament`)
       .then(res => {
         const json = res.data;
         setState(json);
