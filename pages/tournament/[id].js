@@ -4,28 +4,29 @@ import RegisterSteps from '../../components/RegisterSteps'
 import { useSession } from 'next-auth/react'
 import { Paper, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { response } from '../../lib/api';
 
 export default function RegistrationPage () {
     const { data: session, status } = useSession();
     const [ tournament, setTournament ] = useState();
     const router = useRouter();
-    useEffect(() => {
+    
+    useEffect(async () => {
         if (sessionStorage.getItem('tournaments')) {
             setTournament(JSON.parse(sessionStorage.getItem('tournaments')).find(e => {
                 return e._id === router.query.id;
             }));
         } else {
-            axios.get(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/tournament`)
-                .then(res => {
-                    const json = res.data;
-                    setTournament(json.data.find(e => {
-                        return e._id === router.query.id
-                    }));
-                    sessionStorage.setItem('tournaments', JSON.stringify(json.data));
-                });
+            const json = await response('tournament');
+            const { data } = json;
+
+            setTournament(data.find(e => {
+                return e._id === router.query.id
+            }));
+            sessionStorage.setItem('tournaments', JSON.stringify(data));
         }
     }, [router]);
+
     const loading = status === 'loading';
     
     return (
