@@ -1,18 +1,18 @@
 import { Fragment } from 'react'
 import {
-    Autocomplete,
-    Grid,
-    InputLabel,
-    MenuItem,
-    Select,
-    TextField
-  } from '@mui/material'
-import { DatePicker } from '@mui/lab';
+  Autocomplete,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField
+} from '@mui/material'
+import { DatePicker } from '@mui/lab'
 import { cities, clubes } from '../mock/data'
 
-export default function RegistrationForm({tournament, state, setState, validate}) { 
+export default function RegistrationForm ({ tournament, state, setState, validate }) {
   const handleValue = (e) => {
-    let newState;
+    let newState
     if (e instanceof Date) {
       newState = Object.assign({}, {
         athlete: { ...state.athlete, birthDate: e },
@@ -24,119 +24,127 @@ export default function RegistrationForm({tournament, state, setState, validate}
         tournament: tournament
       })
     }
-    validate(newState);
-    setState(newState);
+    validate(newState)
+    setState(newState)
   }
 
   return (
-    <Fragment>
-        <Grid container spacing={3}>
-            <Grid item xs={12} sm={6}>
-            <TextField
+    <>
+      <Grid container spacing={3}>
+        <Grid item xs={12} sm={6}>
+          <TextField
             required
-            id="firstName"
-            name="firstName"
-            label="First Name"
+            id='firstName'
+            name='firstName'
+            label='First Name'
             fullWidth
-            autoComplete="given-name"
-            variant="standard"
+            autoComplete='given-name'
+            variant='standard'
             value={state.athlete.firstName}
-            onChange={handleValue} />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-            <TextField
+            onChange={handleValue}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
             required
-            id="lastName"
-            name="lastName"
+            id='lastName'
+            name='lastName'
             label='Last Name'
             fullWidth
-            autoComplete="family-name"
-            variant="standard"
+            autoComplete='family-name'
+            variant='standard'
             value={state.athlete.lastName}
-            onChange={handleValue} />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-            <InputLabel id="gender-label">Gender</InputLabel>
-            <Select
-            labelId="gender-label"
-            id="gender"
-            name="gender"
+            onChange={handleValue}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <InputLabel id='gender-label'>Gender</InputLabel>
+          <Select
+            labelId='gender-label'
+            id='gender'
+            name='gender'
             value={state.athlete.gender}
-            label="Gender"
-            onChange={handleValue}>
-                <MenuItem value={'M'}>Man</MenuItem>
-                <MenuItem value={'W'}>Woman</MenuItem>
-            </Select>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-            <DatePicker
+            label='Gender'
+            onChange={handleValue}
+          >
+            <MenuItem value='M'>Man</MenuItem>
+            <MenuItem value='W'>Woman</MenuItem>
+          </Select>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <DatePicker
             required
-            id="birthDate"
-            name="birthDate"
-            label="Birth Date"
+            id='birthDate'
+            name='birthDate'
+            label='Birth Date'
             value={state.athlete.birthDate}
             onChange={handleValue}
-            renderInput={(params) => <TextField {...params} />} />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-            <InputLabel id="division-label">Division</InputLabel>
-            <Select
-            labelId="division-label"
-            id="division"
-            name="division"
-            label="Division"
-            value={state.athlete.division}
-            onChange={handleValue}>
-                {
-                    tournament.division.map(o => {
-                        const k = Object.keys(o)[0]
-                        return <MenuItem key={k} value={k}>{Object.values(o)[0]}</MenuItem>
-                    })
-                }
-            </Select>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-            <InputLabel id="klass-label">Class</InputLabel>
-            <Select
-            required
-            labelId="klass-label"
-            id="klass"
-            name="klass"
-            label="Class"
-            value={state.athlete.klass}
-            onChange={handleValue}>
-                {
-                    tournament.klass.map(o => {
-                        const k = Object.keys(o)[0]
-                        return <MenuItem key={k} value={k}>{Object.values(o)[0]}</MenuItem>
-                    })
-                }
-            </Select>
-            </Grid>
-            <Grid item xs={12}>
-                <Autocomplete
-                required
-                disablePortal
-                freeSolo
-                id="club"
-                options={clubes}
-                sx={{ width: 300 }}
-                value={state.athlete.club}
-                onChange={handleValue}
-                renderInput={(params) => <TextField {...params} label="Club" />} />
-            </Grid>
-            <Grid item xs={12}>
-                <Autocomplete
-                disablePortal
-                freeSolo
-                id="city"
-                options={cities}
-                sx={{ width: 300 }}
-                value={state.athlete.city}
-                onChange={handleValue}
-                renderInput={(params) => <TextField {...params} label="City" />} />
-            </Grid>
+            renderInput={(params) => <TextField {...params} />}
+          />
         </Grid>
-    </Fragment>
+        <Grid item xs={12} sm={6}>
+          <InputLabel id='division-label'>Division</InputLabel>
+          <Select
+            labelId='division-label'
+            id='division'
+            name='division'
+            label='Division'
+            value={state.athlete.division}
+            onChange={handleValue}
+          >
+            {
+                    tournament.division.map(o => {
+                      const k = Object.keys(o)[0]
+                      return <MenuItem key={k} value={k}>{Object.values(o)[0]}</MenuItem>
+                    })
+                }
+          </Select>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <InputLabel id='klass-label'>Class</InputLabel>
+          <Select
+            required
+            labelId='klass-label'
+            id='klass'
+            name='klass'
+            label='Class'
+            value={state.athlete.klass}
+            onChange={handleValue}
+          >
+            {
+                    tournament.klass.map(o => {
+                      const k = Object.keys(o)[0]
+                      return <MenuItem key={k} value={k}>{Object.values(o)[0]}</MenuItem>
+                    })
+                }
+          </Select>
+        </Grid>
+        <Grid item xs={12}>
+          <Autocomplete
+            required
+            disablePortal
+            freeSolo
+            id='club'
+            options={clubes}
+            sx={{ width: 300 }}
+            value={state.athlete.club}
+            onChange={handleValue}
+            renderInput={(params) => <TextField {...params} label='Club' />}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Autocomplete
+            disablePortal
+            freeSolo
+            id='city'
+            options={cities}
+            sx={{ width: 300 }}
+            value={state.athlete.city}
+            onChange={handleValue}
+            renderInput={(params) => <TextField {...params} label='City' />}
+          />
+        </Grid>
+      </Grid>
+    </>
   )
 }
