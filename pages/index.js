@@ -7,15 +7,15 @@ export default function HomePage () {
   const [ state, setState ] = useState([]);
   useEffect(async () => {
     const json = await get('tournament');
-    const { data } = json;
-    
+    const { data } = json.data;
+
     setState(data);
     sessionStorage.setItem('tournaments', JSON.stringify(data));
   },[]);
   
   return (
     <Layout>
-     {state.data ? <FeaturedTurnament tournament={state.data} /> : null}
+     {state ? <FeaturedTurnament tournament={state} /> : null}
     </Layout>
   )
 }
