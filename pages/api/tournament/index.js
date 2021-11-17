@@ -1,5 +1,5 @@
 import clientPromise from "../../../lib/mongodb";
-import sendResponse from "../../../lib/api";
+import { response } from "../../../lib/api";
 
 const dbHandler = async function() {
     const client = await clientPromise;
@@ -16,14 +16,14 @@ export default async function handler(req, res) {
     switch (req.method) {
         case 'GET':
             try {
-                payload = sendResponse(await collection.find({}).toArray());
+                payload = response(await collection.find({}).toArray());
             } finally {
                 client.close();
             }
             break;
         default:
             client.close();
-            payload = sendResponse('Unsupported method', true);
+            payload = response('Unsupported method', true);
     }
 
     res.json(payload);

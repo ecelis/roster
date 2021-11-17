@@ -1,17 +1,16 @@
 import Layout from '../components/layout'
 import FeaturedTurnament from '../components/FeaturedTournament'
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { get } from '../lib/api';
 
-export default function Page () {
+export default function HomePage () {
   const [ state, setState ] = useState([]);
-  useEffect(() => {
-    axios.get(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/tournament`)
-      .then(res => {
-        const json = res.data;
-        setState(json);
-        sessionStorage.setItem('tournaments', JSON.stringify(json.data));
-      });
+  useEffect(async () => {
+    const json = await get('tournament');
+    const { data } = json;
+    
+    setState(data);
+    sessionStorage.setItem('tournaments', JSON.stringify(data));
   },[]);
   
   return (
