@@ -1,6 +1,6 @@
 import { SessionProvider } from 'next-auth/react'
 import AdapterDateFns from '@mui/lab/AdapterDateFns'
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import LocalizationProvider from '@mui/lab/LocalizationProvider'
 import './styles.css'
 
 // Use of the <SessionProvider> is now mandatory to allow components that call
@@ -25,10 +25,11 @@ export default function App ({ Component, pageProps }) {
         // windows / tabs will be updated to reflect the user is signed out.
         refetchInterval: 0
       }}
-      session={pageProps.session} >
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <Component {...pageProps} />
-        </LocalizationProvider>
+      session={pageProps.session}
+    >
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <Component {...pageProps} />
+      </LocalizationProvider>
     </SessionProvider>
   )
 }

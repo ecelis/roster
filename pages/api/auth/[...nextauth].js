@@ -1,11 +1,11 @@
-import NextAuth from "next-auth"
-import Email from "next-auth/providers/email"
-import {MongoDBAdapter} from "@next-auth/mongodb-adapter";
-import clientPromise, { mongodbUri } from '../../../lib/mongodb';
+import NextAuth from 'next-auth'
+import Email from 'next-auth/providers/email'
+import { MongoDBAdapter } from '@next-auth/mongodb-adapter'
+import clientPromise, { mongodbUri } from '../../../lib/mongodb'
 
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
-export default async function auth(req, res) {
+export default async function auth (req, res) {
   return await NextAuth(req, res, {
     adapter: MongoDBAdapter({
       db: (await clientPromise).db(process.env.MONGODB_DB)
@@ -14,7 +14,7 @@ export default async function auth(req, res) {
     providers: [
       Email({
         server: process.env.EMAIL_SERVER,
-        from: process.env.EMAIL_FROM,
+        from: process.env.EMAIL_FROM
       })
     ],
     // Database optional. MySQL, Maria DB, Postgres and MongoDB are supported.
@@ -34,7 +34,7 @@ export default async function auth(req, res) {
       // Use JSON Web Tokens for session instead of database sessions.
       // This option can be used with or without a database for users/accounts.
       // Note: `jwt` is automatically set to `true` if no database is specified.
-      jwt: true,
+      jwt: true
 
       // Seconds - How long until an idle session expires and is no longer valid.
       // maxAge: 30 * 24 * 60 * 60, // 30 days
@@ -51,7 +51,7 @@ export default async function auth(req, res) {
     jwt: {
       // A secret to use for key generation (you should set this explicitly)
       // secret: 'INp8IvdIyeMcoGAgFGoA61DdBglwwSqnXJZkgz8PSnw',
-      secret: process.env.JWT_SIGNING_PRIVATE_KEY,
+      secret: process.env.JWT_SIGNING_PRIVATE_KEY
       // Set to true to use encryption (default: false)
       // encryption: true,
       // You can define your own encode/decode functions for signing and encryption
@@ -81,12 +81,12 @@ export default async function auth(req, res) {
       // async redirect({ url, baseUrl }) { return baseUrl },
       // async session({ session, token, user }) { return session },
       // async jwt({ token, user, account, profile, isNewUser }) { return token }
-      /*async session({ session, token, user}) {
+      /* async session({ session, token, user}) {
         return {
           user: { ...user, ...{ id: token.sub } },
           expires: session.expires
         }
-      }*/
+      } */
     },
 
     // Events are useful for logging
@@ -98,6 +98,6 @@ export default async function auth(req, res) {
     theme: 'auto',
 
     // Enable debug messages in the console if you are having problems
-    debug: false,
+    debug: false
   })
 }
