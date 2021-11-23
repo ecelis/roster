@@ -73,11 +73,15 @@ export default function RegisterSteps ({ tournament }) {
       city: '',
       state: { label: 'Nuevo León', id: 'NL' }
     },
-    tournament: tournament
+    tournament: tournament,
+    error: {
+      firstName: false,
+      lastName: false,
+      birthDate: false
+    }
   })
-  const [success, setSuccess] = useState('loading')
+  const [success, setSuccess] = useState('loading')  // TODO use success to handle saving
   const [allowNext, setAllowNext] = useState(false)
-  const [errors, setErrors] = useState()
 
   const handleNext = (e) => {
     if (e.target.textContent === 'Save') {

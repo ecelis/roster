@@ -1,5 +1,6 @@
-import { Fragment } from 'react'
+import { Fragment, useEffect } from 'react'
 import {
+  Alert,
   Autocomplete,
   Grid,
   InputLabel,
@@ -17,27 +18,39 @@ function validateBirthDate(date) {
   return years > 4;
 }
 
+let birthDateHelper = ''
+let firstNameHelper = ''
+let lastNameHelper = ''
+
 export default function RegistrationForm ({ tournament, state, setState, validate }) {
+  useEffect(() => {
+    if (state.error.birthDate) birthDateHelper = "Athlete can't be younger than 4 years old."
+    if (state.error.firstName) firstNameHelper = "First name can't be blank" 
+    if (state.error.lastName) lastNameHelper = "Last name can't be blank"
+  }, [state])
+
   const handleValue = (e) => {
     let newState
     if (e instanceof Date) {
       if (validateBirthDate(e)) {
         newState = Object.assign({}, {
           athlete: { ...state.athlete, birthDate: e },
-          tournament: tournament
+          tournament: tournament,
+          error: { ...state.error, birthDate: false }
         })
       } else {
         // TODO Handle birth date error
-        console.log("Athlete can't be younger than 4 years old.", e)
         newState = Object.assign({}, {
-          athlete: { ...state.athlete, birthDate: e },
-          tournament: tournament
+          athlete: state.athlete,
+          tournament: tournament,
+          error: { ...state.error, birthDate: true }
         })
       }
     } else {
       newState = Object.assign({}, {
         athlete: { ...state.athlete, [e.target.id || e.target.name]: e.target.value },
-        tournament: tournament
+        tournament: tournament,
+        error: { ...state.error }
       })
     }
     validate(newState)
@@ -49,6 +62,7 @@ export default function RegistrationForm ({ tournament, state, setState, validat
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
           <TextField
+            error={state.error.firstName}
             required
             id='firstName'
             name='firstName'
@@ -94,9 +108,11 @@ export default function RegistrationForm ({ tournament, state, setState, validat
             name='birthDate'
             label='Birth Date'
             value={state.athlete.birthDate}
+            error={state.error.birthDate}
             onChange={handleValue}
+            helperText={birthDateHelper}
             renderInput={(params) => <TextField {...params} />}
-          />
+          />{birthDateHelper !== '' ? <Alert severity="error">{birthDateHelper}</Alert> : null }
         </Grid>
         <Grid item xs={12} sm={6}>
           <InputLabel id='division-label'>Division</InputLabel>
