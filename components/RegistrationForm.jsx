@@ -9,15 +9,31 @@ import {
 } from '@mui/material'
 import { DatePicker } from '@mui/lab'
 import { cities, clubes } from '../mock/data'
+import { differenceInCalendarYears } from 'date-fns'
+
+
+function validateBirthDate(date) {
+  const years = differenceInCalendarYears(new Date(), date);
+  return years > 4;
+}
 
 export default function RegistrationForm ({ tournament, state, setState, validate }) {
   const handleValue = (e) => {
     let newState
     if (e instanceof Date) {
-      newState = Object.assign({}, {
-        athlete: { ...state.athlete, birthDate: e },
-        tournament: tournament
-      })
+      if (validateBirthDate(e)) {
+        newState = Object.assign({}, {
+          athlete: { ...state.athlete, birthDate: e },
+          tournament: tournament
+        })
+      } else {
+        // TODO Handle birth date error
+        console.log("Athlete can't be younger than 4 years old.", e)
+        newState = Object.assign({}, {
+          athlete: { ...state.athlete, birthDate: e },
+          tournament: tournament
+        })
+      }
     } else {
       newState = Object.assign({}, {
         athlete: { ...state.athlete, [e.target.id || e.target.name]: e.target.value },
@@ -29,7 +45,7 @@ export default function RegistrationForm ({ tournament, state, setState, validat
   }
 
   return (
-    <>
+    <Fragment>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
           <TextField
@@ -145,6 +161,6 @@ export default function RegistrationForm ({ tournament, state, setState, validat
           />
         </Grid>
       </Grid>
-    </>
+    </Fragment>
   )
 }
