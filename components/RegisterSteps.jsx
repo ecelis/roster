@@ -31,7 +31,8 @@ const schema = {
       },
       required: ['firstName', 'lastName', 'gender', 'division', 'klass', 'club', 'city', 'state']
     },
-    tournament: { type: 'object' }
+    tournament: { type: 'object' },
+    error: { type: 'object' }
   },
   required: ['athlete'],
   additionalProperties: false
@@ -97,6 +98,7 @@ export default function RegisterSteps ({ tournament }) {
 
   const validate = (payload) => {
     const valid = validator(payload)
+    console.log(valid)
     // TODO show errors in UI
     setAllowNext(valid)
   }

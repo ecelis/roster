@@ -10,13 +10,7 @@ import {
 } from '@mui/material'
 import { DatePicker } from '@mui/lab'
 import { cities, clubes } from '../mock/data'
-import { differenceInCalendarYears } from 'date-fns'
-
-
-function validateBirthDate(date) {
-  const years = differenceInCalendarYears(new Date(), date);
-  return years > 4;
-}
+import { validateBirthDate } from '../lib/common';
 
 let birthDateHelper = ''
 let firstNameHelper = ''
