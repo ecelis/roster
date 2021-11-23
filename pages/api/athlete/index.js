@@ -1,5 +1,7 @@
 import clientPromise from '../../../lib/mongodb'
 import { getSession } from 'next-auth/react'
+import { validateBirthDate } from '../../../lib/common'
+
 
 const dbHandler = async function () {
   const client = await clientPromise
@@ -9,23 +11,31 @@ const dbHandler = async function () {
   return { client, collection }
 }
 
+const enroll = async function(registration) {
+  if (!validateBirthDate(new Date(registration.athlete.birthDate))) return { error: 'Invalid birth date' }
+  
+  let result = undefined
+  const { client, collection } = await dbHandler()
+  
+  try {
+    result = await collection.insertOne(registration)
+  } finally {
+    client.close()
+  }
+  
+  return result;
+}
+
 export default async function handler (req, res) {
   const session = await getSession({ req })
-
-  let result
-  const { client, collection } = await dbHandler()
-
+  
+  let result = undefined
   if (session) {
     switch (req.method) {
       case 'POST':
-        try {
-          result = await collection.insertOne(req.body)
-        } finally {
-          client.close()
-        }
+        result = await enroll(req.body)
         break
       default:
-        client.close()
         result = { error: 'Unsupported method' }
     }
   } else {

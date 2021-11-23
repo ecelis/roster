@@ -31,7 +31,8 @@ const schema = {
       },
       required: ['firstName', 'lastName', 'gender', 'division', 'klass', 'club', 'city', 'state']
     },
-    tournament: { type: 'object' }
+    tournament: { type: 'object' },
+    error: { type: 'object' }
   },
   required: ['athlete'],
   additionalProperties: false
@@ -73,11 +74,15 @@ export default function RegisterSteps ({ tournament }) {
       city: '',
       state: { label: 'Nuevo León', id: 'NL' }
     },
-    tournament: tournament
+    tournament: tournament,
+    error: {
+      firstName: false,
+      lastName: false,
+      birthDate: false
+    }
   })
-  const [success, setSuccess] = useState('loading')
+  const [success, setSuccess] = useState('loading')  // TODO use success to handle saving
   const [allowNext, setAllowNext] = useState(false)
-  const [errors, setErrors] = useState()
 
   const handleNext = (e) => {
     if (e.target.textContent === 'Save') {
@@ -93,6 +98,7 @@ export default function RegisterSteps ({ tournament }) {
 
   const validate = (payload) => {
     const valid = validator(payload)
+    console.log(valid)
     // TODO show errors in UI
     setAllowNext(valid)
   }
