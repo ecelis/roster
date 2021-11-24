@@ -6,6 +6,7 @@ import Review from './Review'
 import axios from 'axios'
 import Ajv from 'ajv'
 import addFormats from 'ajv-formats'
+import { useSession } from 'next-auth/react'
 
 const ajv = new Ajv({ allErrors: true })
 addFormats(ajv)
@@ -63,6 +64,7 @@ function getStepContent (step, tournament, state, setState, validate) {
 }
 
 export default function RegisterSteps ({ tournament }) {
+  const { data: session } = useSession();
   const [activeStep, setActiveStep] = useState(0)
   const [state, setState] = useState({
     athlete: {
@@ -74,7 +76,8 @@ export default function RegisterSteps ({ tournament }) {
       klass: '',
       club: '',
       city: '',
-      state: { label: 'Nuevo León', id: 'NL' }
+      state: { label: 'Nuevo León', id: 'NL' },
+      email: session.user.email
     },
     tournament: tournament,
     error: {
