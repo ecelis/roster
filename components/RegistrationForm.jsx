@@ -11,6 +11,7 @@ import {
 import { DatePicker } from '@mui/lab'
 import { cities, clubes } from '../mock/data'
 import { validateBirthDate } from '../lib/common';
+import { format } from 'date-fns';
 
 let birthDateHelper = ''
 let firstNameHelper = ''
@@ -18,9 +19,21 @@ let lastNameHelper = ''
 
 export default function RegistrationForm ({ tournament, state, setState, validate }) {
   useEffect(() => {
-    if (state.error.birthDate) birthDateHelper = "Athlete can't be younger than 4 years old."
-    if (state.error.firstName) firstNameHelper = "First name can't be blank" 
-    if (state.error.lastName) lastNameHelper = "Last name can't be blank"
+    if (state.error.birthDate) {
+      birthDateHelper = "Athlete can't be younger than 4 years old."
+    } else {
+      birthDateHelper = ''
+    }
+    if (state.error.firstName) {
+      firstNameHelper = "First name can't be blank"
+    } else {
+      firstNameHelper = ''
+    }
+    if (state.error.lastName) {
+      lastNameHelper = "Last name can't be blank"
+    } else {
+      lastNameHelper = ''
+    }
   }, [state])
 
   const handleValue = (e) => {
@@ -28,7 +41,7 @@ export default function RegistrationForm ({ tournament, state, setState, validat
     if (e instanceof Date) {
       if (validateBirthDate(e)) {
         newState = Object.assign({}, {
-          athlete: { ...state.athlete, birthDate: e },
+          athlete: { ...state.athlete, birthDate: format(e, 'yyyy-MM-dd') },
           tournament: tournament,
           error: { ...state.error, birthDate: false }
         })

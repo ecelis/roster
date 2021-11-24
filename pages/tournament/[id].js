@@ -23,8 +23,6 @@ export default function RegistrationPage () {
       setTournament(data.find(e => {
         return e._id === router.query.id
       }))
-      console.log('data', data)
-      console.log('setTournament', tournament)
 
       sessionStorage.setItem('tournaments', JSON.stringify(data))
     }

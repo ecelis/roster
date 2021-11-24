@@ -5,8 +5,10 @@ import RegistrationForm from './RegistrationForm'
 import Review from './Review'
 import axios from 'axios'
 import Ajv from 'ajv'
+import addFormats from 'ajv-formats'
 
 const ajv = new Ajv({ allErrors: true })
+addFormats(ajv)
 const schema = {
   type: 'object',
   properties: {
@@ -16,7 +18,7 @@ const schema = {
         firstName: { type: 'string', minLength: 2 },
         lastName: { type: 'string', minLength: 2 },
         gender: { type: 'string', minLength: 1 },
-        birthDate: { type: 'object' },
+        birthDate: { type: 'string', format: 'date' },
         division: { type: 'string', minLength: 1 },
         klass: { type: 'string', minLength: 1 },
         club: { type: 'string' },
@@ -98,7 +100,6 @@ export default function RegisterSteps ({ tournament }) {
 
   const validate = (payload) => {
     const valid = validator(payload)
-    console.log(valid)
     // TODO show errors in UI
     setAllowNext(valid)
   }
@@ -112,15 +113,15 @@ export default function RegisterSteps ({ tournament }) {
           </Step>
         ))}
       </Stepper>
-      <>
+      <Fragment>
         {activeStep === steps.length
           ? (
-            <>
+            <Fragment>
               <Typography variant='subtitle1'>You have been registered</Typography>
-            </>
+            </Fragment>
             )
           : (
-            <>
+            <Fragment>
               {getStepContent(activeStep, tournament, state, setState, validate)}
               <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                 {activeStep !== 0 && (
@@ -137,9 +138,9 @@ export default function RegisterSteps ({ tournament }) {
                     {activeStep === steps.length - 1 ? 'Save' : 'Next'}
                   </Button>
               </Box>
-            </>
+            </Fragment>
             )}
-      </>
+      </Fragment>
     </Container>
   )
 }

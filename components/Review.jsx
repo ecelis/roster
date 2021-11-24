@@ -73,7 +73,7 @@ export default function Review ({ state, setState }) {
           </Typography>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Typography gutterBottom>{state.athlete.birthDate.toLocaleDateString()}</Typography>
+          <Typography gutterBottom>{new Date(state.athlete.birthDate).toLocaleDateString()}</Typography>
         </Grid>
         <Grid item xs={12} sm={6}>
           <Typography gutterBottom>{printDivision(state.athlete.division)}</Typography>

@@ -18,7 +18,14 @@ const enroll = async function(registration) {
   const { client, collection } = await dbHandler()
   
   try {
-    result = await collection.insertOne(registration)
+    result = await collection.findOne({
+      athlete: registration.athlete,
+      tournament: registration.tournament
+    })
+    
+    if (result === null) {
+      result = await collection.insertOne(registration)
+    }
   } finally {
     client.close()
   }
