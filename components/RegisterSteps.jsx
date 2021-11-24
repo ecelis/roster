@@ -3,7 +3,7 @@ import { Box } from '@mui/system'
 import { Fragment, useState } from 'react'
 import RegistrationForm from './RegistrationForm'
 import Review from './Review'
-import axios from 'axios'
+import { post } from '../lib/api'
 import Ajv from 'ajv'
 import addFormats from 'ajv-formats'
 import { useSession } from 'next-auth/react'
@@ -91,7 +91,7 @@ export default function RegisterSteps ({ tournament }) {
 
   const handleNext = (e) => {
     if (e.target.textContent === 'Save') {
-      axios.post(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/athlete`, state)
+      post('athlete', state)
         .then(() => setSuccess('ok')).catch(() => setSuccess('error'))
     }
     setActiveStep(activeStep + 1)

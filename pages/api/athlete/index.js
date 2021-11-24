@@ -33,6 +33,21 @@ const enroll = async function(registration) {
   return result;
 }
 
+const findRegistration = async function(email, tId) {
+  let result = undefined
+  const { client, collection } = await dbHandler()
+
+  try {
+    result = await collection.find({
+      'athlete.email': email, 'tournament._id': tId
+    }).toArray()
+  } finally {
+    client.close()
+  }
+  
+  return result;
+}
+
 export default async function handler (req, res) {
   const session = await getSession({ req })
   
@@ -41,6 +56,10 @@ export default async function handler (req, res) {
     switch (req.method) {
       case 'POST':
         result = await enroll(req.body)
+        break
+      case 'GET':
+        const { email, tId } = req.query
+        if (email && tId) result = await findRegistration(email, tId)
         break
       default:
         result = { error: 'Unsupported method' }
