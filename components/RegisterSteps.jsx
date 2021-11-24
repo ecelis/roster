@@ -3,10 +3,13 @@ import { Box } from '@mui/system'
 import { Fragment, useState } from 'react'
 import RegistrationForm from './RegistrationForm'
 import Review from './Review'
-import axios from 'axios'
+import { post } from '../lib/api'
 import Ajv from 'ajv'
+import addFormats from 'ajv-formats'
+import { useSession } from 'next-auth/react'
 
 const ajv = new Ajv({ allErrors: true })
+addFormats(ajv)
 const schema = {
   type: 'object',
   properties: {
@@ -16,7 +19,7 @@ const schema = {
         firstName: { type: 'string', minLength: 2 },
         lastName: { type: 'string', minLength: 2 },
         gender: { type: 'string', minLength: 1 },
-        birthDate: { type: 'object' },
+        birthDate: { type: 'string', format: 'date' },
         division: { type: 'string', minLength: 1 },
         klass: { type: 'string', minLength: 1 },
         club: { type: 'string' },
@@ -61,6 +64,7 @@ function getStepContent (step, tournament, state, setState, validate) {
 }
 
 export default function RegisterSteps ({ tournament }) {
+  const { data: session } = useSession();
   const [activeStep, setActiveStep] = useState(0)
   const [state, setState] = useState({
     athlete: {
@@ -72,7 +76,8 @@ export default function RegisterSteps ({ tournament }) {
       klass: '',
       club: '',
       city: '',
-      state: { label: 'Nuevo León', id: 'NL' }
+      state: { label: 'Nuevo León', id: 'NL' },
+      email: session.user.email
     },
     tournament: tournament,
     error: {
@@ -86,7 +91,7 @@ export default function RegisterSteps ({ tournament }) {
 
   const handleNext = (e) => {
     if (e.target.textContent === 'Save') {
-      axios.post(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/athlete`, state)
+      post('athlete', state)
         .then(() => setSuccess('ok')).catch(() => setSuccess('error'))
     }
     setActiveStep(activeStep + 1)
@@ -98,7 +103,6 @@ export default function RegisterSteps ({ tournament }) {
 
   const validate = (payload) => {
     const valid = validator(payload)
-    console.log(valid)
     // TODO show errors in UI
     setAllowNext(valid)
   }
@@ -112,15 +116,15 @@ export default function RegisterSteps ({ tournament }) {
           </Step>
         ))}
       </Stepper>
-      <>
+      <Fragment>
         {activeStep === steps.length
           ? (
-            <>
+            <Fragment>
               <Typography variant='subtitle1'>You have been registered</Typography>
-            </>
+            </Fragment>
             )
           : (
-            <>
+            <Fragment>
               {getStepContent(activeStep, tournament, state, setState, validate)}
               <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                 {activeStep !== 0 && (
@@ -137,9 +141,9 @@ export default function RegisterSteps ({ tournament }) {
                     {activeStep === steps.length - 1 ? 'Save' : 'Next'}
                   </Button>
               </Box>
-            </>
+            </Fragment>
             )}
-      </>
+      </Fragment>
     </Container>
   )
 }
