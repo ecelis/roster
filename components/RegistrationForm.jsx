@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import {
   Alert,
   Autocomplete,
@@ -9,10 +9,10 @@ import {
   TextField
 } from '@mui/material'
 import { DatePicker } from '@mui/lab'
-import { cities, clubes } from '../mock/data'
 import { validateBirthDate } from '../lib/common';
 import { format } from 'date-fns';
 
+import { clubes, cities } from '../mock/data'
 let birthDateHelper = ''
 let firstNameHelper = ''
 let lastNameHelper = ''
