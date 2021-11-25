@@ -9,7 +9,7 @@ import { get, response } from '../../lib/api'
 export default function RegistrationPage () {
   const { data: session, status } = useSession()
   const [tournament, setTournament] = useState()
-  const [ prevReg, setPrevReg ] = useState()
+  const [ prevReg, setPrevReg ] = useState([])
   const router = useRouter()
 
   useEffect(async () => {
@@ -31,7 +31,7 @@ export default function RegistrationPage () {
     }
   }, [router, session])
 
-  const loading = status === 'loading'
+  const loading = status === 'loading'  // TODO use loading status to show spinning wheel
 
   return (
     <Layout>
@@ -48,7 +48,7 @@ export default function RegistrationPage () {
                     `${new Date(tournament.fromDate).toLocaleDateString()} a ${new Date(tournament.toDate).toLocaleDateString()
                     }`}
           </Typography>
-          {prevReg ?
+          {prevReg.length > 0 ?
           <p>You are already registered to this tournament</p> :
           <RegisterSteps tournament={tournament} />
           }
