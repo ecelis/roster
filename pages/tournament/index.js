@@ -8,9 +8,10 @@ export default function RegistrationPage () {
 
   return (
     <Layout>
-      {!session && <>
-        <p>Denied</p>
-      </>}
+      {!session &&
+        <>
+          <p>Denied</p>
+        </>}
       {session &&
         <Paper variant='outlined' sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
           <Typography component='h1' variant='h4' align='center'>{`My Tournaments ${session.user.email}`}</Typography>
