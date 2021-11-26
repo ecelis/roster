@@ -37,12 +37,13 @@ export default function RegistrationPage () {
 
   return (
     <Layout>
-      {(!session && tournament) && <>
-        <p>Sign in to register in {tournament.name} from
-          {' ' + new Date(tournament.fromDate).toLocaleDateString()} to
-          {' ' + new Date(tournament.toDate).toLocaleDateString()}
-        </p>
-      </>}
+      {(!session && tournament) &&
+        <Paper variant='outlined' sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
+          <p>Sign in to register in {tournament.name} from
+            {' ' + new Date(tournament.fromDate).toLocaleDateString()} to
+            {' ' + new Date(tournament.toDate).toLocaleDateString()}
+          </p>
+        </Paper>}
       {(session && tournament) &&
         <Paper variant='outlined' sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
           <Typography component='h1' variant='h4' align='center'>{`Registro ${tournament.name}`}</Typography>
