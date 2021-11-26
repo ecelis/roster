@@ -17,8 +17,8 @@ let firstNameHelper = ''
 let lastNameHelper = ''
 
 export default function RegistrationForm ({ tournament, state, setState, validate }) {
-  const [clubes, setClubes] = useState([]) // TODO fetch this from DB
-  const [cities, setCities] = useState([]) // TODO fetch this from DB
+  const [clubes] = useState([]) // TODO fetch this from DB
+  const [cities] = useState([]) // TODO fetch this from DB
   useEffect(() => {
     if (state.error.birthDate) {
       birthDateHelper = "Athlete can't be younger than 4 years old."
@@ -71,6 +71,7 @@ export default function RegistrationForm ({ tournament, state, setState, validat
         <Grid item xs={12} sm={6}>
           <TextField
             error={state.error.firstName}
+            helperText={firstNameHelper}
             required
             id='firstName'
             name='firstName'
@@ -85,6 +86,8 @@ export default function RegistrationForm ({ tournament, state, setState, validat
         <Grid item xs={12} sm={6}>
           <TextField
             required
+            error={state.error.lastName}
+            helperText={lastNameHelper}
             id='lastName'
             name='lastName'
             label='Last Name'

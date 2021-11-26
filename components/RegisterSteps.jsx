@@ -121,8 +121,9 @@ export default function RegisterSteps ({ tournament }) {
           ? (
             <Typography variant='subtitle1'>You have been registered</Typography>
             )
-          : (<Fragment>
-            {getStepContent(activeStep, tournament, state, setState, validate)}
+          : (
+            <Fragment>
+              {getStepContent(activeStep, tournament, state, setState, validate)}
               <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                 {activeStep !== 0 && (
                   <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>

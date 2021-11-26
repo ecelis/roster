@@ -4,7 +4,7 @@ import RegisterSteps from '../../components/RegisterSteps'
 import { useSession } from 'next-auth/react'
 import { Paper, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
-import { get, response } from '../../lib/api'
+import { get } from '../../lib/api'
 
 export default function RegistrationPage () {
   const { data: session, status } = useSession()
@@ -13,18 +13,18 @@ export default function RegistrationPage () {
   const router = useRouter()
 
   useEffect(async () => {
-    if (sessionStorage.getItem('tournaments')) {
-      setTournament(JSON.parse(sessionStorage.getItem('tournaments')).find(e => {
+    if (sessionStorage.getItem('tournaments')) {  // eslint-disable-line
+      setTournament(JSON.parse(sessionStorage.getItem('tournaments')).find(e => {    // eslint-disable-line
         return e._id === router.query.id
       }))
     } else {
       const json = await get('tournament')
-      const { data } = json.data  // TODO it reads weird
+      const { data } = json.data // TODO it reads weird
 
       setTournament(data.find(e => {
         return e._id === router.query.id
       }))
-      sessionStorage.setItem('tournaments', JSON.stringify(data))
+      sessionStorage.setItem('tournaments', JSON.stringify(data))  // eslint-disable-line
     }
     if (session) {
       const res = await get('athlete', { email: session.user.email, tId: tournament._id })

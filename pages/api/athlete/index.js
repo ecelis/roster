@@ -57,7 +57,7 @@ export default async function handler (req, res) {
         result = await enroll(req.body)
         break
       case 'GET':
-        const { email, tId } = req.query
+        const { email, tId } = req.query  // eslint-disable-line
         if (email && tId) result = await findRegistration(email, tId)
         break
       default:

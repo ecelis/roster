@@ -10,7 +10,7 @@ export default function HomePage () {
     const { data } = json.data
 
     setState(data)
-    sessionStorage.setItem('tournaments', JSON.stringify(data))
+    sessionStorage.setItem('tournaments', JSON.stringify(data))  // eslint-disable-line
   }, [])
 
   return (

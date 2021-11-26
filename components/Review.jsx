@@ -4,7 +4,7 @@ import { Fragment } from 'react'
 // TODO Get divisions from tournament
 function printDivision (state) {
   const division = state.tournament.division.find(d => {
-    if (d[state.athlete.division]) return d
+    return d[state.athlete.division]
   })
   return division[state.athlete.division]
 }
@@ -12,12 +12,12 @@ function printDivision (state) {
 // TODO Get classes from tournament
 function printKlass (state) {
   const klass = state.tournament.klass.find(k => {
-    if (k[state.athlete.klass]) return k
+    return k[state.athlete.klass]
   })
   return klass[state.athlete.klass]
 }
 
-export default function Review ({ state  }) {
+export default function Review ({ state }) {
   const klass = printKlass(state)
   const division = printDivision(state)
 
@@ -35,7 +35,7 @@ export default function Review ({ state  }) {
         </Grid>
         <Grid item xs={12} sm={6}>
           <Typography gutterBottom>{
-                    state.athlete.gender == 'M' ? 'Man' : 'Woman'
+                    state.athlete.gender === 'M' ? 'Man' : 'Woman'
                     }
           </Typography>
         </Grid>
