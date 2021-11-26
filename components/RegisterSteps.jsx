@@ -55,7 +55,7 @@ function getStepContent (step, tournament, state, setState, validate) {
     case 1:
       return (
         <Review
-          tournament={tournament} state={state} setState={setState}
+          tournament={tournament} state={state}
         />
       )
     default:
@@ -116,16 +116,13 @@ export default function RegisterSteps ({ tournament }) {
           </Step>
         ))}
       </Stepper>
-      <>
+      <Fragment>
         {activeStep === steps.length
           ? (
-            <>
-              <Typography variant='subtitle1'>You have been registered</Typography>
-            </>
+            <Typography variant='subtitle1'>You have been registered</Typography>
             )
-          : (
-            <>
-              {getStepContent(activeStep, tournament, state, setState, validate)}
+          : (<Fragment>
+            {getStepContent(activeStep, tournament, state, setState, validate)}
               <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                 {activeStep !== 0 && (
                   <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
@@ -141,9 +138,8 @@ export default function RegisterSteps ({ tournament }) {
                   {activeStep === steps.length - 1 ? 'Save' : 'Next'}
                 </Button>
               </Box>
-            </>
-            )}
-      </>
+            </Fragment>)}
+      </Fragment>
     </Container>
   )
 }

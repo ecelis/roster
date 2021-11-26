@@ -53,9 +53,9 @@ function printKlass (k) {
   }
 }
 
-export default function Review ({ state, setState }) {
+export default function Review ({ state  }) {
   return (
-    <>
+    <Fragment>
       <Typography variant='h6' gutterBottom>
         Summary {state.tournament.name}
       </Typography>
@@ -82,6 +82,6 @@ export default function Review ({ state, setState }) {
           <Typography gutterBottom>{printKlass(state.athlete.klass)}</Typography>
         </Grid>
       </Grid>
-    </>
+    </Fragment>
   )
 }
