@@ -18,8 +18,8 @@ export default function RegistrationPage () {
         return e._id === router.query.id
       }))
     } else {
-      const json = await response('tournament')
-      const { data } = json
+      const json = await get('tournament')
+      const { data } = json.data  // TODO it reads weird
 
       setTournament(data.find(e => {
         return e._id === router.query.id
