@@ -9,17 +9,16 @@ import {
   TextField
 } from '@mui/material'
 import { DatePicker } from '@mui/lab'
-import { validateBirthDate } from '../lib/common';
-import { format } from 'date-fns';
-
+import { validateBirthDate } from '../lib/common'
+import { format } from 'date-fns'
 
 let birthDateHelper = ''
 let firstNameHelper = ''
 let lastNameHelper = ''
 
 export default function RegistrationForm ({ tournament, state, setState, validate }) {
-  const [ clubes, setClubes ] = useState([])  // TODO fetch this from DB
-  const [ cities, setCities ] = useState([])  // TODO fetch this from DB
+  const [clubes, setClubes] = useState([]) // TODO fetch this from DB
+  const [cities, setCities] = useState([]) // TODO fetch this from DB
   useEffect(() => {
     if (state.error.birthDate) {
       birthDateHelper = "Athlete can't be younger than 4 years old."
@@ -67,7 +66,7 @@ export default function RegistrationForm ({ tournament, state, setState, validat
   }
 
   return (
-    <Fragment>
+    <>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
           <TextField
@@ -121,7 +120,7 @@ export default function RegistrationForm ({ tournament, state, setState, validat
             onChange={handleValue}
             helperText={birthDateHelper}
             renderInput={(params) => <TextField {...params} />}
-          />{birthDateHelper !== '' ? <Alert severity="error">{birthDateHelper}</Alert> : null }
+          />{birthDateHelper !== '' ? <Alert severity='error'>{birthDateHelper}</Alert> : null}
         </Grid>
         <Grid item xs={12} sm={6}>
           <InputLabel id='division-label'>Division</InputLabel>
@@ -186,6 +185,6 @@ export default function RegistrationForm ({ tournament, state, setState, validat
           />
         </Grid>
       </Grid>
-    </Fragment>
+    </>
   )
 }

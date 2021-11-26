@@ -64,7 +64,7 @@ function getStepContent (step, tournament, state, setState, validate) {
 }
 
 export default function RegisterSteps ({ tournament }) {
-  const { data: session } = useSession();
+  const { data: session } = useSession()
   const [activeStep, setActiveStep] = useState(0)
   const [state, setState] = useState({
     athlete: {
@@ -86,7 +86,7 @@ export default function RegisterSteps ({ tournament }) {
       birthDate: false
     }
   })
-  const [success, setSuccess] = useState('loading')  // TODO use success to handle saving
+  const [success, setSuccess] = useState('loading') // TODO use success to handle saving
   const [allowNext, setAllowNext] = useState(false)
 
   const handleNext = (e) => {
@@ -116,34 +116,34 @@ export default function RegisterSteps ({ tournament }) {
           </Step>
         ))}
       </Stepper>
-      <Fragment>
+      <>
         {activeStep === steps.length
           ? (
-            <Fragment>
+            <>
               <Typography variant='subtitle1'>You have been registered</Typography>
-            </Fragment>
+            </>
             )
           : (
-            <Fragment>
+            <>
               {getStepContent(activeStep, tournament, state, setState, validate)}
               <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                 {activeStep !== 0 && (
-                    <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
-                        Back
-                                </Button>
-                  )}
-                <Button
-                    disabled={!allowNext}
-                    variant='contained'
-                    onClick={handleNext}
-                    sx={{ mt: 3, ml: 1 }}
-                  >
-                    {activeStep === steps.length - 1 ? 'Save' : 'Next'}
+                  <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
+                    Back
                   </Button>
+                )}
+                <Button
+                  disabled={!allowNext}
+                  variant='contained'
+                  onClick={handleNext}
+                  sx={{ mt: 3, ml: 1 }}
+                >
+                  {activeStep === steps.length - 1 ? 'Save' : 'Next'}
+                </Button>
               </Box>
-            </Fragment>
+            </>
             )}
-      </Fragment>
+      </>
     </Container>
   )
 }
