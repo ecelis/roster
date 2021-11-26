@@ -12,12 +12,14 @@ import { DatePicker } from '@mui/lab'
 import { validateBirthDate } from '../lib/common';
 import { format } from 'date-fns';
 
-import { clubes, cities } from '../mock/data'
+
 let birthDateHelper = ''
 let firstNameHelper = ''
 let lastNameHelper = ''
 
 export default function RegistrationForm ({ tournament, state, setState, validate }) {
+  const [ clubes, setClubes ] = useState([])  // TODO fetch this from DB
+  const [ cities, setCities ] = useState([])  // TODO fetch this from DB
   useEffect(() => {
     if (state.error.birthDate) {
       birthDateHelper = "Athlete can't be younger than 4 years old."

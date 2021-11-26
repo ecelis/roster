@@ -27,7 +27,9 @@ export default function RegistrationPage () {
       sessionStorage.setItem('tournaments', JSON.stringify(data))
     }
     if (session) {
-      setPrevReg(await get('athlete', { email: session.user.email, tId: tournament._id }))
+      const res = await get('athlete', { email: session.user.email, tId: tournament._id })
+      // TODO check for success in res
+      setPrevReg(res.data)
     }
   }, [router, session])
 
