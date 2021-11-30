@@ -16,8 +16,9 @@
     "test": "npx standard && jest --watch",
     "lint": "npx standard"
   },
-  "author": "Iain Collins <me@iaincollins.com>",
+  "author": "Ernesto Celis <ernesto@celisdelafuente.net",
   "contributors": [
+    "Iain Collins <me@iaincollins.com>",
     "Balázs Orbán <info@balazsorban.com>",
     "Nico Domino <yo@ndo.dev>"
   ],
