@@ -77,7 +77,8 @@ export default function RegisterSteps ({ tournament }) {
       club: '',
       city: '',
       state: { label: 'Nuevo León', id: 'NL' },
-      email: session.user.email
+      email: session.user.email,
+      _id: session.user.id
     },
     tournament: tournament,
     error: {

@@ -66,7 +66,7 @@ export default function RegistrationForm ({ tournament, state, setState, validat
   }
 
   return (
-    <>
+    <Fragment>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
           <TextField
@@ -188,6 +188,6 @@ export default function RegistrationForm ({ tournament, state, setState, validat
           />
         </Grid>
       </Grid>
-    </>
+    </Fragment>
   )
 }

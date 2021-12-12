@@ -83,7 +83,7 @@ export default async function auth (req, res) {
       // async jwt({ token, user, account, profile, isNewUser }) { return token }
       async session({ session, token, user}) {
         return {
-          user: { ...user, ...{ id: token.sub } },
+          user: { ...session.user, ...{ id: token.sub } },
           expires: session.expires
         }
       }

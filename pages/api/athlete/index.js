@@ -1,6 +1,7 @@
 import clientPromise from '../../../lib/mongodb'
 import { getSession } from 'next-auth/react'
 import { validateBirthDate } from '../../../lib/common'
+import { response } from '../../../lib/api'
 
 const dbHandler = async function () {
   const client = await clientPromise
@@ -61,11 +62,11 @@ export default async function handler (req, res) {
         if (email && tId) result = await findRegistration(email, tId)
         break
       default:
-        result = { error: 'Unsupported method' }
+        result = 'Unsupported method'
     }
   } else {
-    result = { error: 'Unauthorized' }
+    result = 'Unauthorized'
   }
 
-  res.json(result)
+  res.json(response(result))
 }
