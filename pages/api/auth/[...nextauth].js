@@ -81,12 +81,12 @@ export default async function auth (req, res) {
       // async redirect({ url, baseUrl }) { return baseUrl },
       // async session({ session, token, user }) { return session },
       // async jwt({ token, user, account, profile, isNewUser }) { return token }
-      /* async session({ session, token, user}) {
+      async session({ session, token, user}) {
         return {
-          user: { ...user, ...{ id: token.sub } },
+          user: { ...session.user, ...{ id: token.sub } },
           expires: session.expires
         }
-      } */
+      }
     },
 
     // Events are useful for logging

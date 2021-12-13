@@ -13,11 +13,12 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "test": "npx standard && jest --watch",
+    "test": "jest --watch",
     "lint": "npx standard"
   },
-  "author": "Iain Collins <me@iaincollins.com>",
+  "author": "Ernesto Celis <ernesto@celisdelafuente.net>",
   "contributors": [
+    "Iain Collins <me@iaincollins.com>",
     "Balázs Orbán <info@balazsorban.com>",
     "Nico Domino <yo@ndo.dev>"
   ],
@@ -42,6 +43,7 @@
     "sqlite3": "^5.0.2"
   },
   "devDependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.16.0",
     "@testing-library/jest-dom": "^5.15.0",
     "@testing-library/react": "^12.1.2",
     "babel-jest": "^27.3.1",
