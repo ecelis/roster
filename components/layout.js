@@ -7,7 +7,7 @@ export default function Layout ({ children }) {
   return (
     <>
       <Header />
-      <Container component='main' maxWidth='sm' sx={{ md: 4 }}>
+      <Container component='main' maxWidth='sx' sx={{ md: 12 }}>
         {children}
       </Container>
       <Footer />
