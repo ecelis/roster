@@ -22,7 +22,7 @@ export default function Review ({ state }) {
   const division = printDivision(state)
 
   return (
-    <Fragment>
+    <>
       <Typography variant='h6' gutterBottom>
         Summary {state.tournament.name}
       </Typography>
@@ -49,6 +49,6 @@ export default function Review ({ state }) {
           <Typography gutterBottom>{klass}</Typography>
         </Grid>
       </Grid>
-    </Fragment>
+    </>
   )
 }

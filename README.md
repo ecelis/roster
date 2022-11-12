@@ -17,7 +17,7 @@ npm install
 
 ### 2. Configure your local environment
 
-Copy the .env.local.example file in this directory to .env.local (which will be ignored by Git):
+Copy the env.local.example file in this directory to .env.local (which will be ignored by Git):
 
 ```
 cp .env.local.example .env.local

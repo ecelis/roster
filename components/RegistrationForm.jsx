@@ -43,21 +43,21 @@ export default function RegistrationForm ({ tournament, state, setState, validat
       if (validateBirthDate(e)) {
         newState = Object.assign({}, {
           athlete: { ...state.athlete, birthDate: format(e, 'yyyy-MM-dd') },
-          tournament: tournament,
+          tournament,
           error: { ...state.error, birthDate: false }
         })
       } else {
         // TODO Handle birth date error
         newState = Object.assign({}, {
           athlete: state.athlete,
-          tournament: tournament,
+          tournament,
           error: { ...state.error, birthDate: true }
         })
       }
     } else {
       newState = Object.assign({}, {
         athlete: { ...state.athlete, [e.target.id || e.target.name]: e.target.value },
-        tournament: tournament,
+        tournament,
         error: { ...state.error }
       })
     }
@@ -66,7 +66,7 @@ export default function RegistrationForm ({ tournament, state, setState, validat
   }
 
   return (
-    <Fragment>
+    <>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
           <TextField
@@ -188,6 +188,6 @@ export default function RegistrationForm ({ tournament, state, setState, validat
           />
         </Grid>
       </Grid>
-    </Fragment>
+    </>
   )
 }

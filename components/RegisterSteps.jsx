@@ -80,7 +80,7 @@ export default function RegisterSteps ({ tournament }) {
       email: session.user.email,
       _id: session.user.id
     },
-    tournament: tournament,
+    tournament,
     error: {
       firstName: false,
       lastName: false,
@@ -107,7 +107,7 @@ export default function RegisterSteps ({ tournament }) {
     // TODO show errors in UI
     setAllowNext(valid)
   }
-
+console.log(success) // TODO remove only added to pass linter
   return (
     <Container>
       <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
@@ -117,13 +117,13 @@ export default function RegisterSteps ({ tournament }) {
           </Step>
         ))}
       </Stepper>
-      <Fragment>
+      <>
         {activeStep === steps.length
           ? (
             <Typography variant='subtitle1'>You have been registered</Typography>
             )
           : (
-            <Fragment>
+            <>
               {getStepContent(activeStep, tournament, state, setState, validate)}
               <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                 {activeStep !== 0 && (
@@ -140,8 +140,8 @@ export default function RegisterSteps ({ tournament }) {
                   {activeStep === steps.length - 1 ? 'Save' : 'Next'}
                 </Button>
               </Box>
-            </Fragment>)}
-      </Fragment>
+            </>)}
+      </>
     </Container>
   )
 }

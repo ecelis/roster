@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react'
 import { get } from '../../lib/api'
 
 export default function RegistrationPage () {
-  const { data: session, status } = useSession()
+  const { data: session } = useSession()
   const [tournament, setTournament] = useState()
   const [prevReg, setPrevReg] = useState([])
   const router = useRouter()
@@ -32,8 +32,6 @@ export default function RegistrationPage () {
       setPrevReg(res.data)
     }
   }, [router, session])
-
-  const loading = status === 'loading' // TODO use loading status to show spinning wheel
 
   return (
     <Layout>
