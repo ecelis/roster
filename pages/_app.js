@@ -1,5 +1,5 @@
 import { SessionProvider } from 'next-auth/react'
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsFns'
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import './styles.css'
 
