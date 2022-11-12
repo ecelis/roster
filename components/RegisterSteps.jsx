@@ -1,6 +1,6 @@
 import { Button, Container, Step, StepLabel, Stepper, Typography } from '@mui/material'
 import { Box } from '@mui/system'
-import { Fragment, useState } from 'react'
+import { useState } from 'react'
 import RegistrationForm from './RegistrationForm'
 import Review from './Review'
 import { post } from '../lib/api'
@@ -107,7 +107,7 @@ export default function RegisterSteps ({ tournament }) {
     // TODO show errors in UI
     setAllowNext(valid)
   }
-console.log(success) // TODO remove only added to pass linter
+  console.log(success) // TODO remove only added to pass linter
   return (
     <Container>
       <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>

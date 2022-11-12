@@ -8,7 +8,7 @@ import {
   Select,
   TextField
 } from '@mui/material'
-import { DatePicker } from '@mui/lab'
+import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { validateBirthDate } from '../lib/common'
 import { format } from 'date-fns'
 

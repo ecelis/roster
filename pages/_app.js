@@ -1,4 +1,6 @@
 import { SessionProvider } from 'next-auth/react'
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsFns'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import './styles.css'
 
 // Use of the <SessionProvider> is now mandatory to allow components that call
@@ -25,7 +27,9 @@ export default function App ({ Component, pageProps }) {
       }}
       session={pageProps.session}
     >
-      <Component {...pageProps} />
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <Component {...pageProps} />
+      </LocalizationProvider>
     </SessionProvider>
   )
 }
